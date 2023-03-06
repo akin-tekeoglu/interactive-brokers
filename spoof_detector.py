@@ -17,7 +17,7 @@ class LevelTwoBidAskLinePlot:
         self.asks = [0] * 10
         self.ask_history = []
         self.bid_history = []
-        self.volume_history = [0.0]
+        self.sale_history = [0]
         self.x_points = np.arange(length)
         self.figure, (self.lob_axis, self.volume_axis) = pyplot.subplots(
             nrows=2, ncols=1, sharex=True
@@ -61,21 +61,21 @@ class LevelTwoBidAskLinePlot:
                 self.ask_history.pop(0)
 
     def add_sale(self, size):
-        self.volume_history.append(self.volume_history[-1] + float(size))
-        if len(self.volume_history) > len(self.x_points):
-            self.volume_history.pop(0)
+        self.sale_history.append(size)
+        if len(self.sale_history) > len(self.x_points):
+            self.sale_history.pop(0)
 
     def _update_chart(self, i):
         with self.lock:
             if (
                 len(self.ask_history) != len(self.x_points)
                 or len(self.bid_history) != len(self.x_points)
-                or len(self.volume_history) != len(self.x_points)
+                or len(self.sale_history) != len(self.x_points)
             ):
                 return (self.ask_line, self.bid_line, self.volume_line)
             self.ask_line.set_data(self.x_points, self.ask_history)
             self.bid_line.set_data(self.x_points, self.bid_history)
-            self.volume_line.set_data(self.x_points, np.gradient(self.volume_history))
+            self.volume_line.set_data(self.x_points, self.sale_history)
             #self.volume_axis.relim()
             #self.volume_axis.autoscale_view()
             return (self.ask_line, self.bid_line, self.volume_line)
