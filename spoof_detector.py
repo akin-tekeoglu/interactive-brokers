@@ -1,4 +1,3 @@
-import datetime
 from decimal import Decimal
 import threading
 from ibapi import wrapper
@@ -7,6 +6,7 @@ from IBJts.source.pythonclient.ibapi.common import TickAttribLast
 from IBJts.source.pythonclient.ibapi.contract import Contract
 from lineplot import LevelTwoLinePlot
 from heatmap import LevelTwoHeatmap
+import argparse
 
 
 class MessageReciever(wrapper.EWrapper):
@@ -19,11 +19,11 @@ class MessageSender(EClient):
 
 
 class App(MessageReciever, MessageSender):
-    def __init__(self):
+    def __init__(self, plot):
         self.lock = threading.Lock()
         MessageReciever.__init__(self)
         MessageSender.__init__(self, wrapper=self)
-        self.plot = LevelTwoHeatmap(250)
+        self.plot = plot
         self.contract = self._future_contract()
 
     @staticmethod
@@ -85,6 +85,15 @@ class App(MessageReciever, MessageSender):
 
 
 if __name__ == "__main__":
-    app = App()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--plot")
+    parser.add_argument("--length")
+    args = parser.parse_args()
+    plot = None
+    if args.plot == "heatmap":
+        plot = LevelTwoHeatmap(int(args.length))
+    else:
+        plot = LevelTwoLinePlot(int(args.length))
+    app = App(plot=plot)
     app.connect("127.0.0.1", 7496, clientId=0)
     app.run()

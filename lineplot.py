@@ -17,7 +17,10 @@ class LevelTwoLinePlot:
             nrows=2, ncols=1, sharex=True
         )
         self.lob_axis.set_title("Orders")
+        self.lob_axis.set_ylabel("Order size")
         self.volume_axis.set_title("Sales")
+        self.volume_axis.set_ylabel("Sale size")
+        self.volume_axis.set_xlabel("Message")
         (self.ask_line,) = self.lob_axis.plot([], [], "-", label="ask", color="red")
         (self.bid_line,) = self.lob_axis.plot([], [], "-", label="bid", color="green")
         (self.volume_line,) = self.volume_axis.plot(
@@ -70,6 +73,4 @@ class LevelTwoLinePlot:
             self.ask_line.set_data(self.x_points, self.ask_history)
             self.bid_line.set_data(self.x_points, self.bid_history)
             self.volume_line.set_data(self.x_points, self.sale_history)
-            #self.volume_axis.relim()
-            #self.volume_axis.autoscale_view()
             return (self.ask_line, self.bid_line, self.volume_line)

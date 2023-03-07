@@ -19,7 +19,9 @@ Some utility tools for ibkr tws api
 
 Visualizes the bid and ask orders and sales in single window
 
-![alt text](spoof_detector.png)
+![alt text](lineplot.png)
+
+![alt text](heatmap.png)
 
 # Fin wiz fetcher
 
