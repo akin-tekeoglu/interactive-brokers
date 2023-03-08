@@ -14,9 +14,7 @@ class LevelTwoHeatmap:
         self.im = self.ax.imshow(
             self.order_history,
             aspect="auto",
-            extent=[0, self.length, 0, 20],
-            vmin=0,
-            vmax=100,
+            extent=[0, self.length, 0, 20]
         )
         labels = [
             "bid10",
@@ -80,6 +78,7 @@ class LevelTwoHeatmap:
     def _update_chart(self, i):
         with self.lock:
             self.im.set_data(self.order_history)
+            self.im.set_clim(vmax=self.order_history.max())
             self.colorbar.set_ticks(np.linspace(0, self.order_history.max(), num=5))
             self.colorbar.update_normal(self.im)
             return (self.im,)
