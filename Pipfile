@@ -10,6 +10,7 @@ numpy = "*"
 matplotlib = "*"
 requests = "*"
 beautifulsoup4 = "*"
+pypdf = "*"
 
 [dev-packages]
 
