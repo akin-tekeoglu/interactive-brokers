@@ -1,6 +1,6 @@
 # About
 
-Some utility tools for ibkr tws api
+Some utility tools for ibkr TWS api
 
 # Requirements
 
@@ -15,14 +15,19 @@ Some utility tools for ibkr tws api
 - `pipenv install`
 
 
-# Spoof detector
+## Spoof detector
 
-Visualizes the bid and ask orders and sales in single window
+Visualizes the bid and ask orders and sales in single window with different type of charts. Run `python spoof_detector/spoof_detector.py --help`. You will see all the options
 
-![alt text](lineplot.png)
+![alt text](docs/lineplot.png)
 
-![alt text](heatmap.png)
+![alt text](docs/heatmap.png)
 
-# Fin wiz fetcher
 
-Downloads the symbol with the given query and saves them in TWS watchlist format
+## Stock picker
+
+Downloads the symbol with the given query and saves them in TWS watchlist format. It is still under development
+
+## Algos
+
+Executes trade according to macro economic data releases. E.g non farm payroll, jobless claims... It is still under development

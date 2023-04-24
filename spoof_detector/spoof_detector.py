@@ -2,8 +2,8 @@ from decimal import Decimal
 import threading
 from ibapi import wrapper
 from ibapi.client import EClient, TickerId
-from IBJts.source.pythonclient.ibapi.common import TickAttribLast
-from IBJts.source.pythonclient.ibapi.contract import Contract
+from ibapi.common import TickAttribLast
+from ibapi.contract import Contract
 from lineplot import LevelTwoLinePlot
 from heatmap import LevelTwoHeatmap
 import argparse
@@ -33,7 +33,7 @@ class App(MessageReciever, MessageSender):
         contract.secType = "FUT"
         contract.exchange = "CME"
         contract.currency = "USD"
-        contract.lastTradeDateOrContractMonth = "202303"
+        contract.lastTradeDateOrContractMonth = "202306"
         return contract
 
     def updateMktDepth(
@@ -86,14 +86,17 @@ class App(MessageReciever, MessageSender):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--plot")
-    parser.add_argument("--length")
+    parser.add_argument("--plot", required=True, help="Defines how ask and bid level should be plotted", choices=["heatmap", "line"])
+    parser.add_argument("--length", required=True, type=int, help="Number of messages to be used for plotting. Must be greater than zero" )
     args = parser.parse_args()
     plot = None
     if args.plot == "heatmap":
         plot = LevelTwoHeatmap(int(args.length))
-    else:
+    elif args.plot == "line":
         plot = LevelTwoLinePlot(int(args.length))
+    else:
+        print("Invalid plot argument")
+        exit(-1)
     app = App(plot=plot)
     app.connect("127.0.0.1", 7496, clientId=0)
     app.run()

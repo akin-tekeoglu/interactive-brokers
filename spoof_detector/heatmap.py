@@ -65,7 +65,6 @@ class LevelTwoHeatmap:
         with self.lock:
             self.current_orders[9 - position] = int(size)
             self._update_current_orders()
-
     def add_sale(self, size):
         pass
 
