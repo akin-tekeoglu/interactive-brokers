@@ -1,5 +1,5 @@
 log
 .vscode
 .venv
-IBJts
+IBJts/**
 !IBJts/placeholder

@@ -30,4 +30,4 @@ Downloads the symbol with the given query and saves them in TWS watchlist format
 
 ## Algos
 
-Executes trade according to macro economic data releases. E.g non farm payroll, jobless claims... It is still under development
+Executes trade according to macroeconomic data releases. E.g non farm payroll, jobless claims... It is still under development
